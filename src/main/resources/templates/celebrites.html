@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head th:replace="template1 :: head"></head>
+<body>
+<header th:replace="template1 :: header"></header>
+   <div class="container p-3  my-3 border">
+   <div class="col d-flex justify-content-center">
+      <div class="card border-secondary mb-3" style="max-width: 28rem;">
+         <div class="card-header text-center">Consultation Celebrites</div>
+         <div class="card-body">
+         <form th:action="@{/consultcelebrite}" method="get">
+            <label>Nom celebrite</label>
+            <input type="text" name="nomcelebrite"/>
+            <button type="submit" class="btn btn-secondary">Chercher</button> 
+         </form>
+         <p th:if="${exception}" style="color:red;">Celebrite non trouver </p>
+      </div>
+    </div>
+   </div>
+    <div class="col d-flex justify-content-center">
+     <div class="card border-secondary mb-3" style="width: 26rem;" th:if="${celebrite}" >
+        <div class="card-header text-center" >Information celebrite</div>
+           <div class="card-body">
+               <div>
+                 <label>numCelebrite:</label>
+                 <label th:text="${celebrite.numCelebrite}"></label>
+               </div>
+               <div>
+                 <label>Nom:</label>
+                 <label th:text="${celebrite.nom}"></label>
+               </div>
+               <div>
+                 <label>prenom:</label>
+                 <label th:text="${celebrite.prenom}"></label>
+               </div>
+               <div>
+                 <label>nationalite:</label>
+                 <label th:text="${celebrite.nationalite}"></label>
+               </div>
+               <div>
+                 <label>epoque:</label>
+                 <label th:text="${celebrite.epoque}"></label>
+               </div>
+           </div>
+     </div>
+     </div>
+     <div class="card border-secondary mb-3" th:if="${celebrite}">
+				<div class="card-header text-center"> Liste des Monuments associees</div>
+				<div class="card-body"> 
+					<table class="table table-hover">
+						<tr class="table-secondary">
+							<th>codeM</th><th>nomM</th><th>proprietaire</th><th>typeMonument</th><th>longitude</th><th>latitude</th><th>nom Lieu</th>
+						</tr>
+						<tr class="table-light" th:each="l:${ListMonuments}">
+							<td th:text="${l.codeM}"></td> 
+							<td th:text="${l.nomM}"></td> 
+							<td th:text="${l.proprietaire}"></td> 
+							<td th:text="${l.typeMonument}"></td> 
+							<td th:text="${l.longitude}"></td>
+							<td th:text="${l.latitude}"></td>
+							<td th:text="${l.localite.getNomCom()}"></td>
+						</tr>
+					</table>					
+				</div>
+		   </div>
+     
+   </div> 
+</body>
+</html>

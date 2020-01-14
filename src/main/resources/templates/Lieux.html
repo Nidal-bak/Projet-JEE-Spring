@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head th:replace="template1 :: head"></head>
+<body>
+<header th:replace="template1 :: header"></header>
+<div class="container p-3  my-3 border">
+<div class="card border-secondary mb-3"  th:if="${ListLieux}">
+				<div class="card-header text-center"> Liste des Lieux </div>
+				<div class="card-body"> 
+					<table class="table table-striped">
+						<tr>
+							<th>codeInsee</th><th>nomCom</th><th>longitude</th><th>latitude</th><th>departement</th>
+						</tr>
+						<tr th:each="l:${ListLieux}">
+							<td th:text="${l.codeInsee}"></td> 
+							<td th:text="${l.nomCom}"></td> 
+							<td th:text="${l.longitude}"></td> 
+							<td th:text="${l.latitude}"></td> 
+							<td th:text="${l.dep.getNomDep()}"></td>
+							<td><a th:href="@{/suprimerLieu(codeLieu=${l.codeInsee})}">Suprimer</a></td>
+							<td><a th:href="@{/modifier(codeInsee=${l.codeInsee})}">Modifier</a></td>
+						</tr>
+					</table>					
+				</div>
+		   </div>
+
+<div class="col d-flex justify-content-center">
+<div class="card border-secondary mb-3" style="width: 28rem;" sec:authorize="hasRole('ROLE_ADMIN')">
+<div class="card-header text-center"> Ajouter un Lieu </div>
+<div class="card-body">
+<form th:action="@{/ajouterLieu}" method="post">
+						
+						<div class="form-group">
+						    <label> Code Lieu: </label>
+							<input type="text" placeholder="Entrer Code Lieu" name="codeInsee" />
+						</div>
+						<div class="form-group">
+						    <label> Nom Lieu: </label>
+							<input type="text" placeholder="Entrer Nom lieu" name="nomCom" />
+						</div>
+						
+						<div class="form-group">
+							<label> longitude : </label>
+							<input type="number" placeholder="Entrer longitude" name="longitude"  />
+						</div>
+						<div class="form-group">
+							<label> latitude : </label>
+							<input type="number" placeholder="Entrer latitude" name="latitude"  />
+						</div>
+						<div class="form-group">
+							<label> Code du departement : </label>
+							<input type="text" placeholder="Entrer code dpt" name="dep"  />
+						</div>
+						
+						<button type="submit" class="btn btn-secondary"> Enregistrer </button>
+				
+</form>
+<p th:if="${erreur}" style="color:red;">Verifier les information saisies</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

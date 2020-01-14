@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head th:replace="template1 :: head"></head>
+<body>
+<header th:replace="template1 :: header"></header>
+<div class="container p-5  my-3 border">
+	<div class="col d-flex justify-content-center">
+		<div class="card border-bg mb-3" style="width: 27rem;">
+             <div class="card-header text-center">Modification du Lieu</div>
+                <div class="card-body">
+
+                  <form th:action="@{/ajouterLieu}" method="post">						
+						<div>
+						    <label> Code Lieu: </label><label th:text="${Lieu.codeInsee}"></label>
+							<input type="hidden"  name="codeInsee" th:value="${Lieu.codeInsee}"/>
+						</div>
+						<div>
+						    <label> nom Lieu: </label>
+							<input type="text"  name="nomCom" th:value="${Lieu.nomCom}"/>
+						</div>
+						
+						<div>
+							<label> longitude : </label>
+							<input type="number"  name="longitude" th:value="${Lieu.longitude}" />
+						</div>
+						<div>
+							<label> latitude : </label>
+							<input type="number"  name="latitude"  th:value="${Lieu.latitude}"/>
+						</div>
+						<div>
+							<label> Code du departement : </label>
+							<input type="text"  name="dep" th:value="${Lieu.dep.getDep()}" />
+						</div>
+						
+						<button type="submit" class="btn btn-secondary"> Enregistrer </button>
+				
+                </form>
+         </div>
+      </div> 
+   </div>  
+</div>
+</body>
+</html>

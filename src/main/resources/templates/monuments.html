@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head th:replace="template1 :: head"></head>
+<body>
+<header th:replace="template1 :: header"></header>
+<div class="container p-3  my-3 border">
+  <div class="row">
+   <div class="col">
+    <div class="card border-secondary mb-3" style="max-width: 28rem;">
+         <div class="card-header text-center">Consultation Monument</div>
+         <div class="card-body">
+         
+         <form th:action="@{/consultmonument}" method="get">
+            <label>Nom Monument</label>
+            <input type="text" name="nomM"/>
+            <button type="submit" class="btn btn-secondary">Consulter</button> 
+         </form>
+         <p th:if="${exception1}" style="color:red;">Monument non trouver </p>
+      </div>
+     </div>
+    
+     
+     <div class="card border-secondary mb-3" style="width: 27rem;" th:if="${monument}" >
+        <div class="card-header text-center">Information Monument</div>
+           <div class="card-body">
+               <div>
+                 <label>code Momument :</label>
+                 <label th:text="${monument.codeM}"></label>
+               </div>
+               <div>
+                 <label>nom Momument:</label>
+                 <label th:text="${monument.nomM}"></label>
+               </div>
+               <div>
+                 <label>proprietaire:</label>
+                 <label th:text="${monument.proprietaire}"></label>
+               </div>
+               <div>
+                 <label>typeMonument:</label>
+                 <label th:text="${monument.typeMonument}"></label>
+               </div>
+               <div>
+                 <label>longitude:</label>
+                 <label th:text="${monument.longitude}"></label>
+               </div>
+               <div>
+                 <label>typeMonument:</label>
+                 <label th:text="${monument.latitude}"></label>
+               </div>
+               <div>
+                 <label>Nom lieu:</label>
+                 <label th:text="${monument.localite.getNomCom()}"></label>
+               </div>
+               <div>
+                 <label>Nom departement:</label>
+                 <label th:text="${monument.localite.dep.getNomDep()}"></label>
+               </div>
+               <div th:each="l:${monument.celebrites}">
+                 <label>Nom Celebrite associee:</label>
+                 <label th:text="${l.getNom()}"></label>
+               </div>
+           </div>
+      </div>
+     </div>
+
+
+<div class="col center">
+ <div class="card border-secondary mb-3" style="width: 27rem;">
+        <div class="card-header text-center">Associer Monument a Celebrite</div>
+           <div class="card-body">
+            <form th:action="@{/addCelebritetomonument}" method="get">
+						
+						<div>
+						    <label> num Celebrite: </label>
+							<input type="number"  name="numCelebrite" />
+						</div>
+						<div>
+						    <label> code Momument: </label>
+							<input type="text"  name="codeM" />
+						</div>
+						<button type="submit" class="btn btn-secondary"> Enregistrer </button>
+				
+           </form>
+           <p th:if="${exception3}" style="color:red;">Verifiez les informations saisies</p>
+      </div>
+    </div>
+    
+    
+    <div class="card border-secondary mb-3" style="width: 27rem;">
+        <div class="card-header text-center">Calcul distance entre deux monuments</div>
+           <div class="card-body">
+          <form th:action="@{/calculdistance}" method="get">
+            <label>Code Monument 1</label>
+            <input type="text" name="codeM1"/>
+            <label>Code Monument 2</label>
+            <input type="text" name="codeM2"/>
+            <button type="submit" class="btn btn-secondary">Calculer</button> 
+         </form>
+        <p th:if="${exception2}" style="color:red;">Codes monuments incorecte</p>
+      </div>
+    </div>
+    
+    
+    <div class="card border-secondary mb-3" style="width: 27rem;" th:if="${distance}" >
+        <div class="card-header text-center">Information distance</div>
+           <div class="card-body">
+               <div>
+                 <label>Distance en km:</label>
+                 <label th:text="${distance}"></label>
+               </div>
+           </div>
+     </div>
+     </div>
+</div>
+</div>
+</body>
+</html>

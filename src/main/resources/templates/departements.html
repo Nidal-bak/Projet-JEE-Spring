@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head th:replace="template1 :: head"></head>
+<body>
+<header th:replace="template1 :: header"></header>
+
+   <div class="container p-3  my-3 border">
+      <div class="col d-flex justify-content-center">
+      <div class="card border-secondary mb-3" style="max-width: 28rem;">
+         <div class="card-header text-center">Consultation departement</div>
+         <div class="card-body">
+         <form th:action="@{/consultdepartement}" method="get">
+            <label>Code departement</label>
+            <input type="text" name="codedepartement"/>
+            <button type="submit" class="btn btn-secondary">Consulter</button> 
+         </form>
+         <p th:if="${exception}" style="color:red;">Departement non trouver </p>
+      </div>
+    </div>
+    </div>
+     <div class="col d-flex justify-content-center">
+     <div class="card border-secondary mb-3" style="width: 28rem;" th:if="${departement}" >
+        <div class="card-header text-center">Information Departement</div>
+           <div class="card-body">
+               <div>
+                 <label>dep:</label>
+                 <label th:text="${departement.dep}"></label>
+               </div>
+               <div>
+                 <label>chefLieu:</label>
+                 <label th:text="${departement.chefLieu}"></label>
+               </div>
+               <div>
+                 <label>nomDep:</label>
+                 <label th:text="${departement.nomDep}"></label>
+               </div>
+               <div>
+                 <label>reg:</label>
+                 <label th:text="${departement.reg}"></label>
+               </div>
+           </div>
+     </div>
+     </div>
+     <div class="card border-secondary mb-3"  th:if="${departement}">
+				<div class="card-header text-center"> Liste des Lieux associees </div>
+				<div class="card-body"> 
+					<table class="table table-striped">
+						<tr>
+							<th>codeInsee</th><th>nomCom</th><th>longitude</th><th>latitude</th>
+						</tr>
+						<tr th:each="l:${ListLieux}">
+							<td th:text="${l.codeInsee}"></td> 
+							<td th:text="${l.nomCom}"></td> 
+							<td th:text="${l.longitude}"></td> 
+							<td th:text="${l.latitude}"></td> 
+						</tr>
+					</table>					
+				</div>
+		   </div>
+     <div class="card border-secondary mb-3"  th:if="${departement}">
+				<div class="card-header text-center"> Liste des Monuments associees</div>
+				<div class="card-body"> 
+					<table class="table table-striped">
+						<tr>
+							<th>codeM</th><th>nomM</th><th>proprietaire</th><th>typeMonument</th><th>longitude</th><th>latitude</th><th>nom Lieu</th>
+						</tr>
+						<tr th:each="l:${ListMonuments}">
+							<td th:text="${l.codeM}"></td> 
+							<td th:text="${l.nomM}"></td> 
+							<td th:text="${l.proprietaire}"></td> 
+							<td th:text="${l.typeMonument}"></td> 
+							<td th:text="${l.longitude}"></td>
+							<td th:text="${l.latitude}"></td>
+							<td th:text="${l.localite.getNomCom()}"></td>
+						</tr>
+					</table>					
+				</div>
+		   </div>
+     
+   </div>
+</body>
+</html>

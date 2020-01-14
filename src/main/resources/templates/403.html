@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">   
+<head th:replace="template1 :: head"></head>
+<body>
+<header th:replace="template1 :: header"></header>
+<div class="container p-5  my-3 border">
+	<div class="col d-flex justify-content-center">
+		 
+				<div class="card border-danger mb-3" style="max-width: 28rem;">
+                   <div class="card-header text-center">Probleme d'autorisation</div>
+                     <div class="card-body">
+						<div class="alert alert-dismissible alert-danger">
+                          <strong>Vous n'avez pas le droit d'acceder a cette ressource</strong> 
+                        </div>
+					 </div>
+				</div> 	  
+	</div>  
+</div>		
+</body>
+</html>
